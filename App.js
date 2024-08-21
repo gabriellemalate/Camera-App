@@ -25,6 +25,7 @@ export default function App() {
           }}
         >
           <Text
+            onPress={__startCamera}
             style={{
               color: '#fff',
               fontWeight: 'bold',
