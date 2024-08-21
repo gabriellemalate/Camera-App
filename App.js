@@ -4,40 +4,54 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { Camera } from 'expo-camera';
 
 export default function App() {
+  const [startCamera, setStartCamera] = React.useState(false);
+
+  const __startCamera = async () => {
+    const { status } = await Camera.requestPermissionsAsync();
+    if (status === 'granted') {
+      setStartCamera(true);
+    } else {
+      alert('Access denied');
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: '#fff',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}
-      >
-        <TouchableOpacity
+      {startCamera ? (
+        <Camera style={{ flex: 1 }} />
+      ) : (
+        <View
           style={{
-            width: 130,
-            borderRadius: 4,
-            backgroundColor: '#14274e',
-            flexDirection: 'row',
+            flex: 1,
+            backgroundColor: '#fff',
             justifyContent: 'center',
-            alignItems: 'center',
-            height: 40
+            alignItems: 'center'
           }}
         >
-          <Text
-            onPress={__startCamera}
+          <TouchableOpacity
             style={{
-              color: '#fff',
-              fontWeight: 'bold',
-              textAlign: 'center'
+              width: 130,
+              borderRadius: 4,
+              backgroundColor: '#14274e',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 40
             }}
+            onPress={__startCamera} // Attach the function to the button press
           >
-            Take picture
-          </Text>
-        </TouchableOpacity>
-      </View>
-
+            <Text
+              style={{
+                color: '#fff',
+                fontWeight: 'bold',
+                textAlign: 'center'
+              }}
+            >
+              Take picture
+            </Text>
+          </TouchableOpacity>
+        </View>
+      )}
       <StatusBar style="auto" />
     </View>
   )
