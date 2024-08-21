@@ -10,6 +10,7 @@ import {
   Image,
 } from "react-native";
 import { Camera } from "expo-camera";
+import Constants from "expo-constants";
 
 let camera: Camera;
 
