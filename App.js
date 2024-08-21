@@ -8,7 +8,7 @@ export default function App() {
   let camera = null; // initialize the camera reference
 
   const __startCamera = async () => {
-    const { status } = await Camera.requestPermissionsAsync();
+    const { status } = await Camera.requestCameraPermissionsAsync();
     if (status === 'granted') {
       setStartCamera(true);
     } else {
@@ -19,7 +19,12 @@ export default function App() {
   return (
     <View style={styles.container}>
       {startCamera ? (
-        <Camera style={{ flex: 1 }} />
+        <Camera
+          style={{ flex: 1, width: '100%' }}
+          ref={(r) => {
+            camera = r;
+          }}
+        />
       ) : (
         <View
           style={{
@@ -39,7 +44,7 @@ export default function App() {
               alignItems: 'center',
               height: 40
             }}
-            onPress={__startCamera} // Attach the function to the button press
+            onPress={__startCamera} // Attach function to button press
           >
             <Text
               style={{
