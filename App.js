@@ -5,6 +5,7 @@ import { Camera } from 'expo-camera';
 
 export default function App() {
   const [startCamera, setStartCamera] = React.useState(false);
+  let camera = null; // initialize the camera reference
 
   const __startCamera = async () => {
     const { status } = await Camera.requestPermissionsAsync();
